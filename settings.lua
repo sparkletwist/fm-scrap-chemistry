@@ -40,3 +40,16 @@ if mods["space-age"] then
 		}
 	})
 end
+
+if mods["AsphaltRoadsPatched"] then
+	data:extend({
+		{
+			type = "string-setting",
+			name = "scrap-chemistry-asphalt-compat",
+			setting_type = "startup",
+			allowed_values = {"replace", "alternative", "none"},
+			default_value = "replace",
+			order = "m[mods]-a[asphalt]"
+		}
+	})
+end

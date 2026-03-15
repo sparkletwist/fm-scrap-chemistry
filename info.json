@@ -13,9 +13,9 @@
 		"scraptk",
 		"? space-age",
 		"fdsl >= 0.3.0",
-		"? Flare Stack",
+		"? crushing-industry",
 		"(?) any-planet-start",
 		"(?) aai-industry",
-		"? crushing-industry"
+		"(?) AsphaltRoadsPatched"
 	]
 }
