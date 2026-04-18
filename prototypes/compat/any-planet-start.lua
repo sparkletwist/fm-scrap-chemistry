@@ -1,6 +1,8 @@
 local frep = require("__fdsl__.lib.recipe")
 local ftech = require("__fdsl__.lib.technology")
 
+local remix = (settings.startup["scrap-chemistry-recipe-mode"].value == "remix")
+
 if mods["any-planet-start"] then
 	local starting_planet = settings.startup["aps-planet"].value
 
@@ -17,7 +19,9 @@ if mods["any-planet-start"] then
 		ftech.remove_unlock("calcite-processing", "sour-gas-sweetening")
 		ftech.add_unlock("electromagnetic-plant", "sour-gas-sweetening")
 	elseif starting_planet == "gleba" then
-		ftech.remove_unlock("space-platform-thruster", "methane-from-carbon")
-		ftech.add_unlock("biochamber", "methane-from-carbon")
+		if (not remix) then
+			ftech.remove_unlock("space-platform-thruster", "methane-from-carbon")
+			ftech.add_unlock("biochamber", "methane-from-carbon")
+		end
 	end
 end

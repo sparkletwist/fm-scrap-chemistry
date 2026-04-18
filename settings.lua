@@ -1,5 +1,14 @@
 data:extend({
 	{
+		type = "string-setting",
+		name = "scrap-chemistry-recipe-mode",
+		setting_type = "startup",
+		default_value = "remix",
+		allowed_values = {"standard", "remix"},
+		order = "a[mode]"
+	},
+	
+	{
 		type = "bool-setting",
 		name = "scrap-chemistry-sulfur",
 		setting_type = "startup",

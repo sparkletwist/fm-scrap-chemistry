@@ -2,8 +2,8 @@
 	"name": "scrap-chemistry",
 	"title": "Scrappy Chemistry",
 	"description": "Make the fluid processing recipes more imperfect with new gases.",
-	"author": "SafTheLamb",
-	"version": "0.5.7",
+	"author": "SafTheLamb, S6X",
+	"version": "0.6.0",
 	"factorio_version": "2.0",
 	"package": {
 		"ignore": ["thumbnail.afphoto", "**/*.afphoto", "**/*.ase", "**/*.afphoto~lock~", "**/*.pdn", "renders/**"] 
