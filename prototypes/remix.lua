@@ -35,7 +35,7 @@ data:extend({
 			{type = "fluid", name = "butane", amount = 20, fluidbox_index=3}
 		},
 		allow_productivity = true,
-		icon = "__base__/graphics/icons/fluid/advanced-oil-processing.png",
+		icon = "__scrap-chemistry__/graphics/icons/remix/naphtha-separation.png",
 		subgroup = "fluid-recipes",
 		order = "a[oil-processing]-b[advanced-oil-processing]-n[naphtha]"
 	},	
@@ -83,6 +83,14 @@ if mods["space-age"] then
 			subgroup = "fulgora-processes",
 			order = "b[holmium]-b[holmium-solution]-z[methane-electrolysis]",
 			energy_required = 4,
+			
+			surface_conditions = {
+				{
+					property = "pressure",
+					min = 600
+				}
+			},
+			
 			
 			icons = {
 				{ icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64 },

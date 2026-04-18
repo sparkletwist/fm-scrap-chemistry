@@ -11,7 +11,7 @@ local coal_item = mods["crushing-industry"] and settings.startup["crushing-indus
 --- Petroleum gas is prioritized at index 1 (but lower priority than Heavy oil)
 --- Sour gas is a byproduct and goes wherever it fits
 
---- Naphtha is prioritized at index 3
+--- Naphtha is prioritized at index 2
 
 data:extend({
 	{

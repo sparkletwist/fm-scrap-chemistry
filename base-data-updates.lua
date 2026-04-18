@@ -7,7 +7,11 @@ local remix = (settings.startup["scrap-chemistry-recipe-mode"].value == "remix")
 -- Basic oil processing
 local _,basic_petroleum_result = frep.get_result("basic-oil-processing", "petroleum-gas")
 if basic_petroleum_result then
-	data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/fluid/basic-oil-processing.png"
+	if remix then
+		data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/remix/basic-oil-processing.png"
+	else
+		data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/fluid/basic-oil-processing.png"
+	end
 	
 	local amount = basic_petroleum_result.amount
 	basic_petroleum_result.fluidbox_index = 1
@@ -24,6 +28,8 @@ end
 
 -- Easier to just replace it, we can fix compat later if this is a problem
 if remix then
+	data.raw.recipe["advanced-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/remix/advanced-oil-processing.png"
+		
 	local _,heavy_oil_result = frep.get_result("advanced-oil-processing", "heavy-oil")
 	local heavy_oil_amount = (heavy_oil_result and heavy_oil_result.amount) or 25
 	
@@ -34,8 +40,8 @@ if remix then
 	
 	data.raw.recipe["advanced-oil-processing"].results = {
 		{type = "fluid", name = "heavy-oil", amount = heavy_oil_amount, fluidbox_index = 1},
-		{type = "fluid", name = "sour-gas", amount = gas_amount, fluidbox_index = 2},
-		{type = "fluid", name = "naphtha", amount = 65, fluidbox_index = 3}
+		{type = "fluid", name = "naphtha", amount = 65, fluidbox_index = 2},
+		{type = "fluid", name = "sour-gas", amount = gas_amount, fluidbox_index = 3},
 	}
 end
 
@@ -143,13 +149,36 @@ end
 -------------------------------------------------------------------------- Tar
 
 frep.add_ingredient("flamethrower-ammo", {type="item", name="tar", amount=2})
+
 local coal_liquefaction = data.raw.recipe["coal-liquefaction"]
 if coal_liquefaction then
-	coal_liquefaction.icon = "__scrap-chemistry__/graphics/icons/fluid/coal-liquefaction.png"
-	frep.replace_ingredient("coal-liquefaction", "heavy-oil", "light-oil")
-	frep.replace_result("coal-liquefaction", "petroleum-gas", "butane")
-	frep.replace_result("coal-liquefaction", "light-oil", "petroleum-gas")
-	frep.replace_result("coal-liquefaction", "heavy-oil", "light-oil")
+	if remix then
+		coal_liquefaction.icon = "__scrap-chemistry__/graphics/icons/remix/coal-liquefaction.png"
+		
+		local _,oil_ingredient = frep.get_ingredient(coal_liquefaction, "heavy-oil")
+		local oil_in_amount = oil_ingredient.amount
+		local oil_out_amount = oil_in_amount + 15
+		
+		local _,oil_result = frep.get_result(coal_liquefaction, "heavy-oil")
+		local oil_amount = (oil_result and oil_result.amount) or 90
+		oil_amount = oil_amount - 20
+		if (oil_amount < oil_out_amount) then oil_amount = oil_out_amount end
+		
+		local _,gas_result = frep.get_result(coal_liquefaction, "petroleum-gas")
+		local gas_amount = (gas_result and gas_result.amount) or 10
+		
+		coal_liquefaction.results = {
+			{type = "fluid", name = "heavy-oil", amount = oil_out_amount, fluidbox_index = 1, ignored_by_stats = oil_in_amount, ignored_by_productivity = oil_in_amount},
+			{type = "fluid", name = "naphtha", amount = oil_amount, fluidbox_index = 2},
+			{type = "fluid", name = "butane", amount = gas_amount, fluidbox_index = 3},
+		}
+	else
+		coal_liquefaction.icon = "__scrap-chemistry__/graphics/icons/fluid/coal-liquefaction.png"
+		frep.replace_ingredient("coal-liquefaction", "heavy-oil", "light-oil")
+		frep.replace_result("coal-liquefaction", "petroleum-gas", "butane")
+		frep.replace_result("coal-liquefaction", "light-oil", "petroleum-gas")
+		frep.replace_result("coal-liquefaction", "heavy-oil", "light-oil")
+	end
 end
 
 if mods["space-age"] then

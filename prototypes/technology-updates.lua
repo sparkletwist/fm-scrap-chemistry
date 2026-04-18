@@ -45,7 +45,11 @@ if mods["space-age"] then
 
 	local coal_liquefaction = data.raw.technology["coal-liquefaction"]
 	if coal_liquefaction then
-		coal_liquefaction.icon = "__scrap-chemistry__/graphics/technology/coal-liquefaction.png"
+		if remix then
+			coal_liquefaction.icon = "__scrap-chemistry__/graphics/technology/remix/coal-liquefaction.png"
+		else
+			coal_liquefaction.icon = "__scrap-chemistry__/graphics/technology/coal-liquefaction.png"
+		end
 	end
 else
 	if (not remix) then
