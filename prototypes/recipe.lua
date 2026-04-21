@@ -163,6 +163,8 @@ data:extend({
 if remix then
 
 	ScrapIndustry.recipes["tar-liquefaction"] = { failrate=0.01, fake_ingredients={{type="fluid", name="steam", amount=150}} }
+	
+else
 
 	data:extend({
 		{
@@ -190,10 +192,7 @@ if remix then
 				quaternary = {r = 0.000, g = 0.000, b = 0.000, a = 1.000}, -- #000000ff
 			}
 		},
-	})
-else
-	
-	data:extend({
+
 		{
 			type = "recipe",
 			name = "sour-gas-pollution",
