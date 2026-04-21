@@ -99,7 +99,7 @@ data:extend({
 		
 		results = (remix and {
 			{type="fluid", name="methane", amount=50},
-			{type="item", name="sulfur", probability=0.5, amount=1}
+			{type="item", name="sulfur", probability=0.2, amount=1}
 		}) or {
 			{type="fluid", name="sulfuric-acid", amount=50}
 		},
