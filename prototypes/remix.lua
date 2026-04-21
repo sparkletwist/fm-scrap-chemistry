@@ -16,7 +16,7 @@ data:extend({
 		flow_color = {0.92, 0.89, 0.1},
 		icon = "__scrap-chemistry__/graphics/icons/fluid/naphtha.png",
 		order = "a[fluid]-b[oil]-d[heavy-oil]-a[naphtha]"
-	},	
+	},
 	
 	{
 		type = "recipe",
@@ -108,7 +108,54 @@ if mods["space-age"] then
 			allow_productivity = true,
 			enabled = false
 		},
+		
+		{
+			type = "fluid",
+			name = "fulgora-oil",
+			subgroup = "fluid",
+			default_temperature = 25,
+			base_color = {0.4, 0.12, 0.1},
+			flow_color = {0.75, 0.5, 0.22},
+			icon = "__scrap-chemistry__/graphics/icons/fluid/fulgora-oil.png",
+			order = "a[fluid]-b[oil]-d[heavy-oil]-b[fulgora]"
+		},
+
+		{
+			type = "recipe",
+			name = "fulgora-oil-separation",
+			category = "chemistry",
+			enabled = false,
+			energy_required = 1,
+			ingredients =
+			{
+				{type = "fluid", name = "fulgora-oil", amount = 400},
+				{type = "fluid", name = "water", amount = 10}
+			},
+			results =
+			{
+				{type = "fluid", name = "heavy-oil", amount = 350},
+				{type = "fluid", name = "naphtha", amount = 100},
+				-- tar added later
+			},
+			allow_productivity = true,
+			icon = "__scrap-chemistry__/graphics/icons/remix/fulgora-oil-separation.png",
+			subgroup = "fluid-recipes",
+			order = "b[fluid-chemistry]-c[more]-f[fulgora-oil]",
+			
+			crafting_machine_tint = {
+				primary = {r = 0.854, g = 0.659, b = 0.576, a = 1.000},
+				secondary = {r = 1.000, g = 0.722, b = 0.376, a = 1.000},
+				tertiary = {r = 0.92, g = 0.71, b = 0.58, a = 1.000},
+				quaternary = {r = 0.66, g = 0.33, b = 0.18, a = 1.000},
+			}			
+			
+		},
+	
 	})
+	
+	data.raw.tile["oil-ocean-shallow"].fluid = "fulgora-oil"
+	data.raw.tile["oil-ocean-deep"].fluid = "fulgora-oil"
+	
 end
 
 ScrapIndustry.recipes["petroleum-gas"] = { ignore=true }

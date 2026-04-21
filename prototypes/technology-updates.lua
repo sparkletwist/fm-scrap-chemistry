@@ -34,6 +34,7 @@ end
 if mods["space-age"] then
 	if (remix) then
 		ftech.add_unlock("electromagnetic-plant", "methane-electrolysis")
+		ftech.add_unlock("holmium-processing", "fulgora-oil-separation")
 	else
 		ftech.add_unlock("space-platform-thruster", "methane-from-carbon", 3)
 		ftech.add_unlock("calcite-processing", "sour-gas-sweetening")

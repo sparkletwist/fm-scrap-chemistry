@@ -70,6 +70,12 @@ fudge_results("butane-pollution")
 
 if remix then
 	fudge_results("naphtha-separation")
+	
+	if (mods["space-age"]) then
+		fudge_results("fulgora-oil-separation")
+		frep.add_result("fulgora-oil-separation", {type="item", name="tar", amount=1})
+	end
+	
 	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=1, extra_count_fraction=0.41})
 else
 	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=2, probability=0.47})
