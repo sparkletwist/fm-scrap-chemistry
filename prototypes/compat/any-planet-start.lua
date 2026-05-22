@@ -15,6 +15,7 @@ if mods["any-planet-start"] then
 			item = "tar",
 			count = 10
 		}
+		
 	elseif starting_planet == "fulgora" then
 		ftech.remove_unlock("calcite-processing", "sour-gas-sweetening")
 		ftech.add_unlock("electromagnetic-plant", "sour-gas-sweetening")

@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: ???
+  Major Features:
+    - Remix mode, featuring a significant redesign of the mod's mechanics!
+  Minor Features:
+    - Add impure fuel, made from sour gas
+  Bugfixes:
+    - Remove random variance in oil processing recipes when failrate is disabled
+    - Fix gases being the wrong color in pipes/tanks
+---------------------------------------------------------------------------------------------------
 Version: 0.5.7
 Date: 2026-03-15
   Compatibility:

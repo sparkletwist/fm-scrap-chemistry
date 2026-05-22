@@ -13,6 +13,9 @@ local coal_item = mods["crushing-industry"] and settings.startup["crushing-indus
 
 --- Naphtha is prioritized at index 2
 
+local remix_doubled = 1
+if remix then remix_doubled = 2 end
+
 data:extend({
 	{
 		type = "recipe",
@@ -23,13 +26,13 @@ data:extend({
 		enabled = false,
 		allow_productivity = true,
 		show_amount_in_title = false,
-		energy_required = 1,
+		energy_required = 1*remix_doubled,
 		ingredients = {
 			{type="item", name=(remix and "solid-fuel") or coal_item, amount=1},
-			{type="fluid", name="petroleum-gas", amount=20},
+			{type="fluid", name="petroleum-gas", amount=20*remix_doubled},
 		},
 				
-		results = {{type="fluid", name="methane", amount=40}},
+		results = {{type="fluid", name="methane", amount=40*remix_doubled}},
 		crafting_machine_tint = {
 			primary = {r = 0.6, g = 0.6, b = 0.8, a = 1.000},
 			secondary = {r = 0.6, g = 0.592, b = 0.8, a = 1.000},
@@ -127,7 +130,7 @@ data:extend({
 		hide_from_signal_gui = false,
 		energy_required = 1,
 		ingredients = {
-			{type="fluid", name="butane", amount=(remix and 40) or 20},
+			{type="fluid", name="butane", amount=20*remix_doubled},
 			table.pack(frep.get_ingredient("plastic-bar", coal_item))[2]
 		},
 		results = {
@@ -161,9 +164,45 @@ data:extend({
 })
 
 if remix then
-
-	ScrapIndustry.recipes["tar-liquefaction"] = { failrate=0.01, fake_ingredients={{type="fluid", name="steam", amount=150}} }
+	data:extend({
+		{
+			type = "recipe",
+			name = "methane-from-coal",
+			icons = {
+				{icon=data.raw.item[coal_item].icon, shift={-12,-12}, scale=0.4},			
+				{icon="__scrap-chemistry__/graphics/icons/fluid/methane.png", draw_background=true},
+			},
+				
+			category = mods["space-age"] and "organic-or-chemistry" or "chemistry",
+			subgroup = "fluid-recipes",
+			order = "a[fluid]-b[oil]-m[methane]-a[from-coal]",
+			enabled = false,
+			allow_productivity = true,
+			show_amount_in_title = false,
+			
+			energy_required = 1,
+			main_product = "methane",
+			
+			ingredients = {
+				{type="item", name=coal_item, amount=4},
+				{type="fluid", name="sulfuric-acid", amount=20},
+			},
+					
+			results = {
+				{type="fluid", name="methane", amount=20},
+				{type="fluid", name="sour-gas", amount=5}
+			},
+			crafting_machine_tint = {
+				primary = {r = 0.6, g = 0.6, b = 0.8, a = 1.000},
+				secondary = {r = 0.7, g = 0.72, b = 0.5, a = 1.000},
+				tertiary = {r = 0.65, g = 0.65, b = 0.45, a = 1.000},
+				quaternary = {r = 0.26, g = 0.28, b = 0.2, a = 1.000},
+			}
+		}
+	})
 	
+	ScrapIndustry.recipes["methane-from-coal"] = {ignore=true}
+	ScrapIndustry.recipes["tar-liquefaction"] = { failrate=0.01, fake_ingredients={{type="fluid", name="steam", amount=150}} }
 else
 
 	data:extend({
@@ -268,11 +307,13 @@ if (remix or settings.startup["scrap-chemistry-butane-realism"].value) then
 			hide_from_signal_gui = false,
 			energy_required = 2,
 			-- Technically the ratios for this aren't quite right, but for balance reasons we shouldn't give more from less
+			-- Remix: use the same ratio as light oil, to make cracking more worthwhile
 			ingredients = {
-				{type="fluid", name="butane", amount=20},
+				{type="fluid", name="butane", amount=(remix and 30) or 20},
 				{type="fluid", name="water", amount=30}
 			},
-			results = {{type="fluid", name="petroleum-gas", amount=10}},
+			show_amount_in_title = false,
+			results = {{type="fluid", name="petroleum-gas", amount=(remix and 20) or 10}},
 			crafting_machine_tint = {
 				primary = {r = 0.768, g = 0.631, b = 0.768, a = 1.000}, -- #c3a0c3ff
 				secondary = {r = 0.659, g = 0.592, b = 0.678, a = 1.000}, -- #a896acff

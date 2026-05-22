@@ -1,16 +1,21 @@
 local frep = require("__fdsl__.lib.recipe")
 
 local remix = (settings.startup["scrap-chemistry-recipe-mode"].value == "remix")
+local no_fudge = not settings.startup["scraptk-failrate-enable"].value
 
 -------------------------------------------------------------------------- Oil processing
 
 -- Basic oil processing
 local _,basic_petroleum_result = frep.get_result("basic-oil-processing", "petroleum-gas")
 if basic_petroleum_result then
+	local remix_increase
+	
 	if remix then
 		data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/remix/basic-oil-processing.png"
+		remix_increase = 5
 	else
 		data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/fluid/basic-oil-processing.png"
+		remix_increase = 0
 	end
 	
 	local amount = basic_petroleum_result.amount
@@ -22,7 +27,7 @@ if basic_petroleum_result then
 	else
 		basic_petroleum_result.amount = amount - 25
 	end
-	frep.add_result("basic-oil-processing", {type="fluid", name="butane", amount=amount, fluidbox_index=3})
+	frep.add_result("basic-oil-processing", {type="fluid", name="butane", amount=amount+remix_increase, fluidbox_index=3})
 	frep.add_result("basic-oil-processing", {type="fluid", name="sour-gas", amount=amount-10, fluidbox_index=2})
 end
 
@@ -51,17 +56,25 @@ local function fudge_results(recipe_name, extra_amount)
 	if recipe and recipe.results then
 		for _,result in pairs(recipe.results) do
 			if result.amount then
-				local scale = 1 - 0.4 * math.random()
-				result.amount_min = scale * result.amount + extra_amount
-				result.amount_max = result.amount + extra_amount
-				result.amount = nil
+				if no_fudge then
+					result.amount = result.amount + extra_amount
+				else
+					local scale = 1 - 0.4 * math.random()
+					result.amount_min = scale * result.amount + extra_amount
+					result.amount_max = result.amount + extra_amount
+					result.amount = nil
+				end
 			end
 		end
 	end
 end
 
+local advanced_oil_extra = 10
+if remix then
+	advanced_oil_extra = 0
+end
 fudge_results("basic-oil-processing")
-fudge_results("advanced-oil-processing", 10)
+fudge_results("advanced-oil-processing", advanced_oil_extra)
 fudge_results("tar-liquefaction")
 fudge_results("petroleum-gas-cracking")
 fudge_results("sour-gas-sweetening")
@@ -215,6 +228,13 @@ if mods["space-age"] then
 		end
 	end
 end
+
+-------------------------------------------------------------------------- Solid fuel
+
+if remix then
+	ScrapIndustry.recipes["solid-fuel-from-petroleum-gas"] = { failrate=0.01, fake_ingredients={}}
+end
+
 
 -------------------------------------------------------------------------- Hydrazine
 

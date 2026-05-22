@@ -4,7 +4,7 @@ if (not remix) then return end
 local frep = require("__fdsl__.lib.recipe")
 frep.replace_ingredient("carbon", "sulfuric-acid", "methane", true)
 
-local coal_item = mods["crushing-industry"] and settings.startup["crushing-industry-coal"].value and "crushed-coal" or "coal"
+--local coal_item = mods["crushing-industry"] and settings.startup["crushing-industry-coal"].value and "crushed-coal" or "coal"
 
 data:extend({
 	{
@@ -34,6 +34,7 @@ data:extend({
 			{type = "fluid", name = "light-oil", amount = 70, fluidbox_index=2},
 			{type = "fluid", name = "butane", amount = 20, fluidbox_index=3}
 		},
+		main_product = "",
 		allow_productivity = true,
 		icon = "__scrap-chemistry__/graphics/icons/remix/naphtha-separation.png",
 		subgroup = "fluid-recipes",
@@ -51,18 +52,18 @@ data:extend({
 		show_amount_in_title = false,
 		always_show_products = true,
 		
-		energy_required = 1,
+		energy_required = 2,
 		
 		main_product = "petroleum-gas",
 		
 		ingredients = {
-			{type="item", name=coal_item, amount=1},
-			{type="fluid", name="methane", amount=40},
+			{type="item", name="solid-fuel", amount=1},
+			{type="fluid", name="methane", amount=80},
 		},
 				
 		results = {
-			{type="fluid", name="petroleum-gas", amount=20},
-			{type="fluid", name="butane", amount=2},
+			{type="fluid", name="petroleum-gas", amount=40},
+			{type="fluid", name="butane", amount=10},
 		},
 		
 		crafting_machine_tint = {
@@ -71,7 +72,52 @@ data:extend({
 			tertiary = {r = 0.74, g = 0.72, b = 0.92, a = 1.000},
 			quaternary = {r = 0.2, g = 0.2, b = 0.3, a = 1.000},
 		}
-	},	
+	},
+	
+	{
+		type = "item",
+		name = "impure-fuel",
+		icon = "__scrap-chemistry__/graphics/icons/remix/impure-fuel.png",
+		fuel_category = "chemical",
+		fuel_value = data.raw.item["solid-fuel"].fuel_value,
+		fuel_acceleration_multiplier = 0.85,
+		fuel_top_speed_multiplier = 0.95,
+		fuel_emissions_multiplier = 5.0,
+		subgroup = "raw-material",
+		order = "b[chemistry]-a[solid-fuel]-x[impure-fuel]",
+		inventory_move_sound = data.raw.item["solid-fuel"].inventory_move_sound,
+		pick_sound = data.raw.item["solid-fuel"].pick_sound,
+		drop_sound = data.raw.item["solid-fuel"].drop_sound,
+		stack_size = data.raw.item["solid-fuel"].stack_size,
+		weight = data.raw.item["solid-fuel"].weight,
+		random_tint_color = item_tints.yellowing_coal
+	},
+	
+	{
+		type = "recipe",
+		name = "impure-fuel",
+		category = "chemistry",
+		energy_required = 2,
+		ingredients = {
+			{type = "fluid", name = "sour-gas", amount = 40}
+		},
+		results = {
+			{type = "item", name = "impure-fuel", amount = 1}
+		},
+		
+		allow_productivity = true,
+		subgroup = "fluid-recipes",
+		enabled = false,
+		order = "b[fluid-chemistry]-x[impure-fuel]",
+		crafting_machine_tint =
+		{
+			primary = {r = 0.710, g = 0.72, b = 0.52, a = 1.000},
+			secondary = {r = 0.745, g = 0.672, b = 0.55, a = 1.000},
+			tertiary = {r = 0.876, g = 0.869, b = 0.597, a = 1.000}, 
+			quaternary = {r = 0.969, g = 1.000, b = 0.2, a = 1.000},
+		}
+	},
+	
 })
 
 if mods["space-age"] then

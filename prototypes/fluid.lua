@@ -18,7 +18,7 @@ data:extend({
 		subgroup = "fluid",
 		order = "a[fluid]-b[oil]-b[petroleum-gas]-b[butane]",
 		default_temperature = 25,
-		gas_temperature = 25,
+		--gas_temperature = 25,
 		fuel_value = (gas_fuel_value and "900kJ") or nil, -- Balanced relative to fuel values provided by Gas Boiler
 		base_color = {0.4, 0.2, 0.4},
 		flow_color = {0.9, 0.9, 0.9}
@@ -30,7 +30,7 @@ data:extend({
 		subgroup = "fluid",
 		order = "a[fluid]-b[oil]-f[sulfuric-acid]-b[sour-gas]",
 		default_temperature = 25,
-		gas_temperature = 25,
+		--gas_temperature = 25,
 		base_color = {0.85, 0.75, 0.2},
 		flow_color = {0.9, 1, 0.25},
 	},
@@ -41,7 +41,7 @@ data:extend({
 		subgroup = "fluid",
 		order = "a[fluid]-b[oil]-m[methane]",
 		default_temperature = 15,
-		gas_temperature = 15,
+		--gas_temperature = 15,
 		max_temperature = 535,
 		heat_capacity = "0.22kJ",
 		fuel_value = (gas_fuel_value and "300kJ") or nil, -- Balanced relative to fuel values provided by Gas Boiler

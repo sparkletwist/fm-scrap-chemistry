@@ -16,6 +16,7 @@ if remix then
 	ftech.add_unlock("oil-processing", "petroleum-gas", 4)
 	
 	ftech.add_unlock("sulfur-processing", "sour-gas-sweetening")
+	ftech.add_unlock("sulfur-processing", "impure-fuel")
 	
 	ftech.remove_unlock("tungsten-carbide", "carbon")
 		
@@ -25,6 +26,7 @@ if remix then
 end
 
 ftech.add_unlock("flammables", "methane")
+ftech.add_unlock("flammables", "methane-from-coal")
 ftech.add_unlock("plastics", "plastic-bar-from-butane")
 
 if (not remix and not settings.startup["scrap-chemistry-sulfur"].value) then
