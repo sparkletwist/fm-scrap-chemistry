@@ -45,7 +45,6 @@ data:extend({
 		max_temperature = 535,
 		heat_capacity = "0.22kJ",
 		fuel_value = (gas_fuel_value and "300kJ") or nil, -- Balanced relative to fuel values provided by Gas Boiler
-		auto_barrel = false,
 		base_color = {0.5, 0.5, 1},
 		flow_color = {1, 1, 1}
 	}

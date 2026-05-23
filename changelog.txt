@@ -1,6 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.1
+Date: 2026-05-23
+  Changes:
+    - Methane can be put in barrels
+  Bugfixes:
+    - Barrel filling recipes no longer produce byproducts even without Scrappy Industry
+---------------------------------------------------------------------------------------------------
 Version: 0.6.0
-Date: ???
+Date: 2026-05-22
   Major Features:
     - Remix mode, featuring a significant redesign of the mod's mechanics!
   Minor Features:

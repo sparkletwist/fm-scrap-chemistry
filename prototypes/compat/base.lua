@@ -36,3 +36,5 @@ ScrapIndustry.products["heavy-oil"] = {priority=1, type="fluid"}
 ScrapIndustry.items["lubricant"] = {scrap="heavy-oil", scale=ScrapIndustry.CHEAP, failrate=0.01}
 
 ScrapIndustry.recipes["solid-fuel-from-butane"] = {failrate=0.01}
+
+ScrapIndustry.subgroups["fill-barrel"] = {ignore=true}
