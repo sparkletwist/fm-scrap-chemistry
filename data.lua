@@ -12,5 +12,6 @@ require("prototypes.compat.any-planet-start")
 require("prototypes.compat.bz-ores")
 require("prototypes.compat.molten-tungsten")
 require("prototypes.compat.asphalt")
+require("prototypes.compat.barreling-group2")
 
 
