@@ -35,6 +35,9 @@ ScrapIndustry.items["light-oil"] = {scrap="tar", scale=ScrapIndustry.FLAVOR, fai
 ScrapIndustry.products["heavy-oil"] = {priority=1, type="fluid"}
 ScrapIndustry.items["lubricant"] = {scrap="heavy-oil", scale=ScrapIndustry.CHEAP, failrate=0.01}
 
+if (remix) then
+	ScrapIndustry.recipes["solid-fuel-from-petroleum-gas"] = { failrate=0.01, fake_ingredients={}}
+end
 ScrapIndustry.recipes["solid-fuel-from-butane"] = {failrate=0.01}
 
 ScrapIndustry.subgroups["fill-barrel"] = {ignore=true}

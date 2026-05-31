@@ -25,6 +25,27 @@ if (remix) then
 				},
 				time = 30
 			}
+		},
+		
+		{
+			type = "technology",
+			name = "fast-oil-processing",
+			icon = "__scrap-chemistry__/graphics/technology/remix/fast-oil-processing.png",
+			icon_size = 256,
+			effects = {
+				{type="unlock-recipe", recipe="fast-oil-processing"},
+			},
+			prerequisites = {"advanced-oil-processing"},
+			unit = {
+			  count = 50,
+			  ingredients =
+			  {
+				{"automation-science-pack", 1},
+				{"logistic-science-pack", 1},
+				{"chemical-science-pack", 1}
+			  },
+			  time = 30
+			}
 		}
 	})
 else

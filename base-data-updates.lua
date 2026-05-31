@@ -48,6 +48,30 @@ if remix then
 		{type = "fluid", name = "naphtha", amount = 65, fluidbox_index = 2},
 		{type = "fluid", name = "sour-gas", amount = gas_amount, fluidbox_index = 3},
 	}
+	
+	data:extend({
+		{
+			type = "recipe",
+			name = "fast-oil-processing",
+			category = "oil-processing",
+			enabled = false,
+			energy_required = 2.5,
+			ingredients = {
+				{type = "fluid", name = "water", amount = 20},
+				{type = "fluid", name = "crude-oil", amount = 100}
+			},
+			results = {
+				{type = "fluid", name = "heavy-oil", amount = 20, fluidbox_index = 1},
+				{type = "fluid", name = "butane", amount = 15, fluidbox_index = 2},
+				{type = "fluid", name = "sour-gas", amount = 65, fluidbox_index = 3},
+			},
+			allow_productivity = true,
+			icon = "__scrap-chemistry__/graphics/icons/remix/fast-oil-processing.png",
+			subgroup = "fluid-recipes",
+			order = "a[oil-processing]-c[aaa-fast-oil-processing]", -- before coal-liquefaction
+			main_product = ""
+		},
+	})
 end
 
 local function fudge_results(recipe_name, extra_amount)
@@ -83,6 +107,7 @@ fudge_results("butane-pollution")
 
 if remix then
 	fudge_results("naphtha-separation")
+	fudge_results("fast-oil-processing")
 	
 	if (mods["space-age"]) then
 		fudge_results("fulgora-oil-separation")
@@ -90,6 +115,7 @@ if remix then
 	end
 	
 	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=1, extra_count_fraction=0.41})
+	frep.add_result("fast-oil-processing", {type="item", name="tar", amount=4})
 else
 	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=2, probability=0.47})
 	frep.replace_result("advanced-oil-processing", "petroleum-gas", "butane")
@@ -228,13 +254,6 @@ if mods["space-age"] then
 		end
 	end
 end
-
--------------------------------------------------------------------------- Solid fuel
-
-if remix then
-	ScrapIndustry.recipes["solid-fuel-from-petroleum-gas"] = { failrate=0.01, fake_ingredients={}}
-end
-
 
 -------------------------------------------------------------------------- Hydrazine
 

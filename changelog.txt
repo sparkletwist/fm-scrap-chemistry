@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.3
+Date: 2026-05-31
+  Balancing:
+    - Increase the cost of methane in Remix mode
+  Minor Features:
+    - Add rapid oil processing tech and recipe
+---------------------------------------------------------------------------------------------------
 Version: 0.6.2
 Date: 2026-05-24
   Compatibility:

@@ -117,9 +117,8 @@ data:extend({
 			quaternary = {r = 0.969, g = 1.000, b = 0.2, a = 1.000},
 		}
 	},
-	
 })
-
+	
 if mods["space-age"] then
 	data:extend({
 		{

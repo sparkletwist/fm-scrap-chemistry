@@ -13,8 +13,20 @@ local coal_item = mods["crushing-industry"] and settings.startup["crushing-indus
 
 --- Naphtha is prioritized at index 2
 
-local remix_doubled = 1
-if remix then remix_doubled = 2 end
+local remix_doubled_butane = 1
+local remix_doubled_methane = 1
+local methane_result_base = 40
+local methane_item_cost = 1
+if remix then
+	remix_doubled_butane = 2
+	remix_doubled_methane = 2
+	
+	if (not settings.startup["scrap-chemistry-cheap-methane"].value) then
+		methane_result_base = 20
+		methane_item_cost = 5
+	end
+	
+end
 
 data:extend({
 	{
@@ -26,13 +38,16 @@ data:extend({
 		enabled = false,
 		allow_productivity = true,
 		show_amount_in_title = false,
-		energy_required = 1*remix_doubled,
+		energy_required = 1*remix_doubled_methane,
 		ingredients = {
-			{type="item", name=(remix and "solid-fuel") or coal_item, amount=1},
-			{type="fluid", name="petroleum-gas", amount=20*remix_doubled},
+			{type="item", name=(remix and "solid-fuel") or coal_item, amount=methane_item_cost},
+			{type="fluid", name="petroleum-gas", amount=20*remix_doubled_methane}
 		},
 				
-		results = {{type="fluid", name="methane", amount=40*remix_doubled}},
+		results = {
+			{type="fluid", name="methane", amount=methane_result_base*remix_doubled_methane}
+		},
+		
 		crafting_machine_tint = {
 			primary = {r = 0.6, g = 0.6, b = 0.8, a = 1.000},
 			secondary = {r = 0.6, g = 0.592, b = 0.8, a = 1.000},
@@ -130,7 +145,7 @@ data:extend({
 		hide_from_signal_gui = false,
 		energy_required = 1,
 		ingredients = {
-			{type="fluid", name="butane", amount=20*remix_doubled},
+			{type="fluid", name="butane", amount=20*remix_doubled_butane},
 			table.pack(frep.get_ingredient("plastic-bar", coal_item))[2]
 		},
 		results = {
@@ -164,6 +179,11 @@ data:extend({
 })
 
 if remix then
+	local coal_item_cost = 5
+	if (settings.startup["scrap-chemistry-cheap-methane"].value) then
+		coal_item_cost = 4
+	end
+	
 	data:extend({
 		{
 			type = "recipe",
@@ -184,7 +204,7 @@ if remix then
 			main_product = "methane",
 			
 			ingredients = {
-				{type="item", name=coal_item, amount=4},
+				{type="item", name=coal_item, amount=coal_item_cost},
 				{type="fluid", name="sulfuric-acid", amount=20},
 			},
 					

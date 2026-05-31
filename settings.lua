@@ -10,6 +10,14 @@ data:extend({
 	
 	{
 		type = "bool-setting",
+		name = "scrap-chemistry-cheap-methane",
+		setting_type = "startup",
+		default_value = false,
+		order = "a[mode]-a[remix-settings]"
+	},
+	
+	{
+		type = "bool-setting",
 		name = "scrap-chemistry-sulfur",
 		setting_type = "startup",
 		default_value = true,
