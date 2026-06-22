@@ -2,6 +2,7 @@ local frep = require("__fdsl__.lib.recipe")
 
 local remix = (settings.startup["scrap-chemistry-recipe-mode"].value == "remix")
 local no_fudge = not settings.startup["scraptk-failrate-enable"].value
+local fast_mode = settings.startup["scrap-chemistry-oil-fast"].value
 
 -------------------------------------------------------------------------- Oil processing
 
@@ -9,6 +10,8 @@ local no_fudge = not settings.startup["scraptk-failrate-enable"].value
 local _,basic_petroleum_result = frep.get_result("basic-oil-processing", "petroleum-gas")
 if basic_petroleum_result then
 	local remix_increase
+	
+	data.raw.recipe["basic-oil-processing"].energy_required = (fast_mode and 2.5) or 5
 	
 	if remix then
 		data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/remix/basic-oil-processing.png"
@@ -33,6 +36,7 @@ end
 
 -- Easier to just replace it, we can fix compat later if this is a problem
 if remix then
+	data.raw.recipe["advanced-oil-processing"].energy_required = (fast_mode and 2.5) or 5
 	data.raw.recipe["advanced-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/remix/advanced-oil-processing.png"
 		
 	local _,heavy_oil_result = frep.get_result("advanced-oil-processing", "heavy-oil")
@@ -55,7 +59,7 @@ if remix then
 			name = "fast-oil-processing",
 			category = "oil-processing",
 			enabled = false,
-			energy_required = 2.5,
+			energy_required = (fast_mode and 1.25) or 2.5,
 			ingredients = {
 				{type = "fluid", name = "water", amount = 20},
 				{type = "fluid", name = "crude-oil", amount = 100}

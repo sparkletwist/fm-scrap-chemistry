@@ -6,6 +6,8 @@ frep.replace_ingredient("carbon", "sulfuric-acid", "methane", true)
 
 --local coal_item = mods["crushing-industry"] and settings.startup["crushing-industry-coal"].value and "crushed-coal" or "coal"
 
+local fast_mode = settings.startup["scrap-chemistry-oil-fast"].value
+
 data:extend({
 	{
 		type = "fluid",
@@ -23,7 +25,7 @@ data:extend({
 		name = "naphtha-separation",
 		category = "oil-processing",
 		enabled = false,
-		energy_required = 5,
+		energy_required = (fast_mode and 2.5) or 5,
 		ingredients =
 		{
 			{type = "fluid", name = "naphtha", amount = 100}

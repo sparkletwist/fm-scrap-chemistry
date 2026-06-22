@@ -7,13 +7,21 @@ data:extend({
 		allowed_values = {"standard", "remix"},
 		order = "a[mode]"
 	},
-	
+		
 	{
 		type = "bool-setting",
 		name = "scrap-chemistry-cheap-methane",
 		setting_type = "startup",
 		default_value = false,
-		order = "a[mode]-a[remix-settings]"
+		order = "a[mode]-a[remix-settings]-b[methane]"
+	},
+	
+	{
+		type = "bool-setting",
+		name = "scrap-chemistry-oil-fast",
+		setting_type = "startup",
+		default_value = true,
+		order = "a[mode]-a[remix-settings]-c[speed]"
 	},
 	
 	{
