@@ -18,7 +18,7 @@ if mods["AsphaltRoadsPatched"] then
 		local recipe = data.raw.recipe["Arci-asphalt"]
 		if recipe then
 			recipe.ingredients = default_ingredients
-			recipe.category = "crafting"
+			recipe.categories = {"crafting"}
 		end
 	elseif settings.startup["scrap-chemistry-asphalt-compat"].value == "alternative" then
 		data:extend({

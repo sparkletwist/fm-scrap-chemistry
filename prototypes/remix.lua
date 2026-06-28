@@ -23,7 +23,7 @@ data:extend({
 	{
 		type = "recipe",
 		name = "naphtha-separation",
-		category = "oil-processing",
+		categories = {"oil-processing"},
 		enabled = false,
 		energy_required = (fast_mode and 2.5) or 5,
 		ingredients =
@@ -40,13 +40,16 @@ data:extend({
 		allow_productivity = true,
 		icon = "__scrap-chemistry__/graphics/icons/remix/naphtha-separation.png",
 		subgroup = "fluid-recipes",
-		order = "a[oil-processing]-b[advanced-oil-processing]-n[naphtha]"
+		order = "a[oil-processing]-b[advanced-oil-processing]-n[naphtha]",
+		crafting_machine_tint = {
+			primary = {r = 1.0, g = 0.5, b = 0.6, a = 1.0},
+		}		
 	},	
 		
 	{
 		type = "recipe",
 		name = "petroleum-gas",
-		category = "chemistry",
+		categories = {"chemistry"},
 		subgroup = "fluid-recipes",
 		order = "b[fluid-chemistry]-m[petroleum-gas-synthesis]",
 		enabled = false,
@@ -98,7 +101,7 @@ data:extend({
 	{
 		type = "recipe",
 		name = "impure-fuel",
-		category = "chemistry",
+		categories = {"chemistry"},
 		energy_required = 2,
 		ingredients = {
 			{type = "fluid", name = "sour-gas", amount = 40}
@@ -126,7 +129,7 @@ if mods["space-age"] then
 		{
 			type = "recipe",
 			name = "methane-electrolysis",
-			category = "electromagnetics",
+			categories = {"electromagnetics"},
 			subgroup = "fulgora-processes",
 			order = "b[holmium]-b[holmium-solution]-z[methane-electrolysis]",
 			energy_required = 4,
@@ -170,7 +173,7 @@ if mods["space-age"] then
 		{
 			type = "recipe",
 			name = "fulgora-oil-separation",
-			category = "chemistry",
+			categories = {"chemistry"},
 			enabled = false,
 			energy_required = 1,
 			ingredients =

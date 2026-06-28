@@ -3,6 +3,7 @@ local frep = require("__fdsl__.lib.recipe")
 local remix = (settings.startup["scrap-chemistry-recipe-mode"].value == "remix")
 local no_fudge = not settings.startup["scraptk-failrate-enable"].value
 local fast_mode = settings.startup["scrap-chemistry-oil-fast"].value
+if not remix then fast_mode = false end
 
 -------------------------------------------------------------------------- Oil processing
 
@@ -12,6 +13,9 @@ if basic_petroleum_result then
 	local remix_increase
 	
 	data.raw.recipe["basic-oil-processing"].energy_required = (fast_mode and 2.5) or 5
+	data.raw.recipe["basic-oil-processing"].crafting_machine_tint = {
+		primary = {r = 0.95, g = 0.6, b = 0.1, a = 1.000},
+    }
 	
 	if remix then
 		data.raw.recipe["basic-oil-processing"].icon = "__scrap-chemistry__/graphics/icons/remix/basic-oil-processing.png"
@@ -57,7 +61,7 @@ if remix then
 		{
 			type = "recipe",
 			name = "fast-oil-processing",
-			category = "oil-processing",
+			categories = {"oil-processing"},
 			enabled = false,
 			energy_required = (fast_mode and 1.25) or 2.5,
 			ingredients = {
@@ -73,7 +77,12 @@ if remix then
 			icon = "__scrap-chemistry__/graphics/icons/remix/fast-oil-processing.png",
 			subgroup = "fluid-recipes",
 			order = "a[oil-processing]-c[aaa-fast-oil-processing]", -- before coal-liquefaction
-			main_product = ""
+			main_product = "",
+			
+			crafting_machine_tint = {
+				primary = {r = 0.75, g = 0.5, b = 0.0, a = 1.0},
+			}			
+			
 		},
 	})
 end
@@ -121,11 +130,11 @@ if remix then
 	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=1, extra_count_fraction=0.41})
 	frep.add_result("fast-oil-processing", {type="item", name="tar", amount=4})
 else
-	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=2, probability=0.47})
+	frep.add_result("basic-oil-processing", {type="item", name="tar", amount=2, independent_probability=0.47})
 	frep.replace_result("advanced-oil-processing", "petroleum-gas", "butane")
 end
 
-frep.add_result("advanced-oil-processing", {type="item", name="tar", amount=1, probability=0.29})
+frep.add_result("advanced-oil-processing", {type="item", name="tar", amount=1, independent_probability=0.29})
 
 -------------------------------------------------------------------------- Methane
 
@@ -215,6 +224,10 @@ if coal_liquefaction then
 		
 		local _,gas_result = frep.get_result(coal_liquefaction, "petroleum-gas")
 		local gas_amount = (gas_result and gas_result.amount) or 10
+		
+		coal_liquefaction.crafting_machine_tint = {
+			primary = {r = 0.92, g = 0.44, b = 0.125, a = 1.0},
+		}
 		
 		coal_liquefaction.results = {
 			{type = "fluid", name = "heavy-oil", amount = oil_out_amount, fluidbox_index = 1, ignored_by_stats = oil_in_amount, ignored_by_productivity = oil_in_amount},

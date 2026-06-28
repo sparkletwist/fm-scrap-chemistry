@@ -28,11 +28,18 @@ if remix then
 	
 end
 
+local organic_or_chemistry = {"chemistry"}
+local chemistry_or_cryogenics = {"chemistry"}
+if mods["space-age"] then
+	table.insert(organic_or_chemistry, "organic")
+	table.insert(chemistry_or_cryogenics, "cryogenics")
+end
+
 data:extend({
 	{
 		type = "recipe",
 		name = "methane",
-		category = mods["space-age"] and "organic-or-chemistry" or "chemistry",
+		categories = organic_or_chemistry,
 		subgroup = "fluid-recipes",
 		order = "a[fluid]-b[oil]-m[methane]",
 		enabled = false,
@@ -59,7 +66,7 @@ data:extend({
 		type = "recipe",
 		name = "butane-pollution",
 		icon = "__scrap-chemistry__/graphics/icons/fluid/butane-pollution.png",
-		category = "oil-processing",
+		categories = {"oil-processing"},
 		subgroup = "fluid-recipes",
 		order = "d[other-chemistry]-B[butane-pollution]",
 		enabled = false,
@@ -76,13 +83,16 @@ data:extend({
 			{type="fluid", name="light-oil", amount=60, fluidbox_index=2},
 			{type="fluid", name="petroleum-gas", amount=30, fluidbox_index=1},
 			{type="fluid", name=(remix and "sour-gas") or "butane", amount=20, fluidbox_index=3}
+		},
+		crafting_machine_tint = {
+			primary = {r = 0.85, g = 0.66, b = 0.1, a = 1.000}
 		}
 	},
 	{
 		type = "recipe",
 		name = "solid-fuel-from-butane",
 		icon = "__scrap-chemistry__/graphics/icons/solid-fuel-from-butane.png",
-		category = "chemistry",
+		categories = {"chemistry"},
 		subgroup = "fluid-recipes",
 		order = "b[fluid-chemistry]-c[solid-fuel-from-butane]",
 		enabled = false,
@@ -97,7 +107,7 @@ data:extend({
 		type = "recipe",
 		name = "sour-gas-sweetening",
 		icon = (remix and "__scrap-chemistry__/graphics/icons/remix/sour-gas-sweetening.png") or "__scrap-chemistry__/graphics/icons/fluid/sour-gas-sweetening.png",
-		category = mods["space-age"] and "chemistry-or-cryogenics" or "chemistry",
+		categories = chemistry_or_cryogenics,
 		subgroup = "fluid-recipes",
 		order = "d[other-chemistry]-D[sour-gas-sweetening]",
 		enabled = false,
@@ -117,7 +127,7 @@ data:extend({
 		
 		results = (remix and {
 			{type="fluid", name="methane", amount=50},
-			{type="item", name="sulfur", probability=0.2, amount=1}
+			{type="item", name="sulfur", independent_probability=0.2, amount=1}
 		}) or {
 			{type="fluid", name="sulfuric-acid", amount=50}
 		},
@@ -137,7 +147,7 @@ data:extend({
 			{icon="__scrap-chemistry__/graphics/icons/fluid/butane.png", shift={-12,-12}, scale=0.4},
 			{icon="__base__/graphics/icons/plastic-bar.png", draw_background=true},
 		},
-		category = mods["space-age"] and "chemistry-or-cryogenics" or "chemistry",
+		categories = chemistry_or_cryogenics,
 		enabled = false,
 		allow_productivity = true,
 		auto_recycle = false,
@@ -158,7 +168,7 @@ data:extend({
 		type = "recipe",
 		name = "tar-liquefaction",
 		icon = "__scrap-chemistry__/graphics/icons/fluid/tar-liquefaction.png",
-		category = "oil-processing",
+		categories = {"oil-processing"},
 		subgroup = "fluid-recipes",
 		order = "a[oil-processing]-d[tar-liquefaction]",
 		enabled = false,
@@ -174,7 +184,10 @@ data:extend({
 			{type="fluid", name="heavy-oil", amount=75, fluidbox_index=1},
 			{type="fluid", name="petroleum-gas", amount=20, fluidbox_index=2},
 			{type="fluid", name=(remix and "sour-gas") or "butane", amount=10, fluidbox_index=3}
-		}
+		},
+		crafting_machine_tint = {
+			primary = {r = 0.356, g = 0.1, b = 0.000, a = 1.000},
+		}		
 	}
 })
 
@@ -193,7 +206,7 @@ if remix then
 				{icon="__scrap-chemistry__/graphics/icons/fluid/methane.png", draw_background=true},
 			},
 				
-			category = mods["space-age"] and "organic-or-chemistry" or "chemistry",
+			categories = organic_or_chemistry,
 			subgroup = "fluid-recipes",
 			order = "a[fluid]-b[oil]-m[methane]-a[from-coal]",
 			enabled = false,
@@ -230,7 +243,7 @@ else
 			type = "recipe",
 			name = "tar",
 			localised_name = {"recipe-name.synthetic-tar"},
-			category = mods["space-age"] and "chemistry-or-cryogenics" or "chemistry",
+			categories = chemistry_or_cryogenics,
 			subgroup = "raw-material",
 			order = "b[chemistry]-b[tar]",
 			enabled = false,
@@ -256,7 +269,7 @@ else
 			type = "recipe",
 			name = "sour-gas-pollution",
 			icon = "__scrap-chemistry__/graphics/icons/fluid/sour-gas-pollution.png",
-			category = mods["space-age"] and "organic-or-chemistry" or "chemistry",
+			categories = organic_or_chemistry,
 			subgroup = "fluid-recipes",
 			order = "d[other-chemistry]-D[sour-gas-sweetening]b",
 			enabled = false,
@@ -294,7 +307,7 @@ if (not remix and not settings.startup["scrap-chemistry-sulfur"].value) then
 				{icon="__scrap-chemistry__/graphics/icons/fluid/sour-gas.png", shift={-12,-12}, scale=0.4},
 				{icon="__base__/graphics/icons/sulfur.png", draw_background=true}
 			},
-			category = "chemistry",
+			categories = {"chemistry"},
 			order = "b[chemistry]-c[sulfur]-c[sour-gas]",
 			enabled = false,
 			allow_productivity = true,
@@ -319,7 +332,7 @@ if (remix or settings.startup["scrap-chemistry-butane-realism"].value) then
 			type = "recipe",
 			name = "butane-cracking",
 			icon = "__scrap-chemistry__/graphics/icons/fluid/butane-cracking.png",
-			category = mods["space-age"] and "organic-or-chemistry" or "chemistry",
+			categories = organic_or_chemistry,
 			subgroup = "fluid-recipes",
 			order = "b[fluid-chemistry]-c[more]-a[butane-cracking]",
 			enabled = false,
@@ -353,7 +366,7 @@ else
 			type = "recipe",
 			name = "petroleum-gas-cracking",
 			icon = "__scrap-chemistry__/graphics/icons/fluid/petroleum-gas-cracking.png",
-			category = mods["space-age"] and "organic-or-chemistry" or "chemistry",
+			categories = organic_or_chemistry,
 			subgroup = "fluid-recipes",
 			order = "b[fluid-chemistry]-c[petroleum-gas-cracking]",
 			enabled = false,
@@ -390,7 +403,7 @@ if mods["space-age"] then
 					{icon="__base__/graphics/icons/fluid/water.png", shift={8,-8}, scale=0.3, draw_background=true},
 					{icon="__scrap-chemistry__/graphics/icons/fluid/methane.png", shift={0,4}, scale=0.4, draw_background=true}
 				},
-				category = "organic-or-chemistry",
+				categories = {"chemistry", "organic"},
 				subgroup = "fluid-recipes",
 				order = "d[other-chemistry]-B[methane-from-carbon]",
 				enabled = false,
@@ -417,7 +430,7 @@ if mods["space-age"] then
 			{
 				type = "recipe",
 				name = "hydrazine",
-				category = "chemistry-or-cryogenics",
+				categories = {"chemistry", "cryogenics"},
 				subgroup = "aquilo-processes",
 				order = "a[ammonia]-c[hydrazine]",
 				enabled = false,
@@ -446,7 +459,7 @@ if mods["space-age"] then
 						{icon="__space-age__/graphics/icons/fluid/electrolyte.png", shift={0,-4}, scale=0.4},
 						{icon="__scrap-chemistry__/graphics/icons/fluid/electrolyte-souring-overlay.png", shift={0,2}, scale=0.45, draw_background=true}
 					},
-					category = "electromagnetics",
+					categories = {"electromagnetics"},
 					subgroup = "fulgora-processes",
 					order = "b[holmium]-e[electrolyte]-b[souring]",
 					enabled = false,

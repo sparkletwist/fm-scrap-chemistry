@@ -3,16 +3,16 @@
 	"title": "Scrappy Chemistry",
 	"description": "Make the fluid processing recipes more imperfect with new gases.",
 	"author": "SafTheLamb, S6X",
-	"version": "0.6.4",
-	"factorio_version": "2.0",
+	"version": "0.7.0",
+	"factorio_version": "2.1",
 	"package": {
 		"ignore": ["thumbnail.afphoto", "**/*.afphoto", "**/*.ase", "**/*.afphoto~lock~", "**/*.pdn", "renders/**"] 
 	},
 	"dependencies": [
-		"base",
-		"scraptk",
+		"base >= 2.1.0",
+		"scraptk >= 1.1.0",
+		"fdsl >= 0.4.0",
 		"? space-age",
-		"fdsl >= 0.3.0",
 		"? crushing-industry",
 		"(?) any-planet-start",
 		"(?) aai-industry",

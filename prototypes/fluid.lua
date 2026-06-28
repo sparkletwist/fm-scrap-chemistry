@@ -43,7 +43,6 @@ data:extend({
 		default_temperature = 15,
 		--gas_temperature = 15,
 		max_temperature = 535,
-		heat_capacity = "0.22kJ",
 		fuel_value = (gas_fuel_value and "300kJ") or nil, -- Balanced relative to fuel values provided by Gas Boiler
 		base_color = {0.5, 0.5, 1},
 		flow_color = {1, 1, 1}
@@ -60,7 +59,6 @@ if mods["space-age"] then
 				subgroup = "fluid",
 				order = "b[new-fluid]-e[aquilo]-c[hydrazine]",
 				default_temperature = 25,
-				heat_capacity = "0.44kJ",
 				fuel_value = (gas_fuel_value and "2.4MJ") or nil,
 				base_color = {0.25, 0.25, 1},
 				flow_color = {0.75, 0.75, 1}
