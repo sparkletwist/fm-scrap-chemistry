@@ -10,7 +10,7 @@
 	},
 	"dependencies": [
 		"base >= 2.1.0",
-		"scraptk >= 1.1.0",
+		"scraptk >= 1.2.0",
 		"fdsl >= 0.4.0",
 		"? space-age",
 		"? crushing-industry",
