@@ -154,8 +154,10 @@ if settings.startup["scrap-chemistry-rocket-fuel"].value then
 		}
 	end
 
-	if mods["space-age"] then
-		frep.replace_ingredient("rocket-fuel-from-jelly", "water", "methane")
+	if not remix then
+		if mods["space-age"] then
+			frep.replace_ingredient("rocket-fuel-from-jelly", "water", "methane")
+		end
 	end
 end
 
